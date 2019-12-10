@@ -12,18 +12,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.pink,
           accentColor: Colors.amber,
-          canvasColor: Color.fromRGBO(255, 254, 229, 1),
+          canvasColor: const Color.fromRGBO(255, 254, 229, 1),
           fontFamily: 'Raleway',
           textTheme: ThemeData.light().textTheme.copyWith(
-              body1: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
-              body2: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
-              title: TextStyle(
+              body1: const TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
+              body2: const TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
+              title: const TextStyle(
                   fontSize: 20,
                   fontFamily: 'RobotoCondensed',
                   fontWeight: FontWeight.bold))),
-      home: CategoriesScreen(),
+      // home: CategoriesScreen(),
+      initialRoute: '/',
       routes: {
-        '/category-meals': (ctx) => CategoryMealsScreen(),
+        '/': (ctx) => CategoriesScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
       },
     );
   }
