@@ -24,15 +24,19 @@ class _TabScreenState extends State<TabScreen> {
       appBar: AppBar(
         title: Text('Meals'),
       ),
-      body: null,
+      body: _pages[_selectedPageIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         backgroundColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Theme.of(context).accentColor,
+        currentIndex: _selectedPageIndex,
         items: [
           BottomNavigationBarItem(
-              icon: const Icon(Icons.category), title: const Text('Categories')),
+              icon: const Icon(Icons.category),
+              title: const Text('Categories')),
           BottomNavigationBarItem(
-              icon: const Icon(Icons.category), title: const Text('Favorites'))
+              icon: const Icon(Icons.favorite), title: const Text('Favorites'))
         ],
       ),
     );
