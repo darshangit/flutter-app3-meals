@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app3_meals/screens/favorites_screen.dart';
 import './categories_screen.dart';
+import './favorites_screen.dart';
 
 class TabScreen extends StatefulWidget {
   @override
@@ -8,27 +8,32 @@ class TabScreen extends StatefulWidget {
 }
 
 class _TabScreenState extends State<TabScreen> {
+  final List<Widget> _pages = [CategoriesScreen(), FavoriteScreen()];
+
+  int _selectedPageIndex = 0;
+
+  void _selectPage(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      initialIndex: 0,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Meals'),
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(icon: Icon(Icons.category), text: 'Categories'),
-              Tab(
-                icon: Icon(Icons.star),
-                text: 'Favourites',
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: <Widget>[CategoriesScreen(), FavoriteScreen()],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Meals'),
+      ),
+      body: null,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectPage,
+        backgroundColor: Theme.of(context).primaryColor,
+        items: [
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.category), title: const Text('Categories')),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.category), title: const Text('Favorites'))
+        ],
       ),
     );
   }
