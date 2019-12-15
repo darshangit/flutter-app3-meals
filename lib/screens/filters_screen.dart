@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app3_meals/widgets/main_drawer.dart';
+import '../widgets/main_drawer.dart';
 
 class FiltersScreen extends StatefulWidget {
   static const routeName = '/filters';
+  final Function saveFilters;
+
+  FiltersScreen(this.saveFilters);
 
   @override
   _FiltersScreenState createState() => _FiltersScreenState();
@@ -29,6 +32,20 @@ class _FiltersScreenState extends State<FiltersScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Filters'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.save),
+              onPressed: () {
+                final selectedFilters = {
+                  'gluten': _glutenFree,
+                  'lactose': _lactoseFree,
+                  'vegan': _vegan,
+                  'vegetarian': _vegetarian
+                };
+                widget.saveFilters(selectedFilters);
+              },
+            )
+          ],
         ),
         drawer: MainDrawer(),
         body: Column(
@@ -51,17 +68,21 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     });
                   }),
                   _buildSwitchListTile(
-                      'Vegetarian',
-                      'Only Include Vegetarian meals',
-                      _vegetarian, (newValue) {
+                      'Lactose-Free',
+                      'Only Include lactose-free meals',
+                      _lactoseFree, (newValue) {
+                    setState(() {
+                      _lactoseFree = newValue;
+                    });
+                  }),
+                  _buildSwitchListTile('Vegetarian',
+                      'Only Include Vegetarian meals', _vegetarian, (newValue) {
                     setState(() {
                       _vegetarian = newValue;
                     });
                   }),
                   _buildSwitchListTile(
-                      'Vegan',
-                      'Only Include vegan meals',
-                      _vegan, (newValue) {
+                      'Vegan', 'Only Include vegan meals', _vegan, (newValue) {
                     setState(() {
                       _vegan = newValue;
                     });
